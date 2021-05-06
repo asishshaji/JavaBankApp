@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <button type="back" class="btn btn-outline-primary mb-3" (click)="goBack()">
+    <i class="fa fa-arrow-left"></i>
+    Back
+  </button>
+
+  <form (ngSubmit)="editAccount()">
+    <div class="form-group">
+      <label>Enter state</label>
+      <input type="text" placeholder="Enter your state" [(ngModel)]="account._state" name="_state" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Enter city</label>
+      <input type="text" placeholder="Enter your city" [(ngModel)]="account._city" name="_city" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Enter pin</label>
+      <input type="text" placeholder="Enter your pin" [(ngModel)]="account._pin" name="_pin" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Enter name</label>
+      <input type="text" placeholder="Enter your name" [(ngModel)]="account._ownerName" name="_ownerName"
+        class="form-control">
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+  </form>
+
+
+</div>

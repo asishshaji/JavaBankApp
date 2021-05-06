@@ -1,0 +1,123 @@
+<nav class="navbar navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">
+    <img src="https://toppng.com/uploads/preview/state-bank-of-india-sbi-vector-logo-115742596090gi1tb90l9.png"
+      width="40" height="40" class="d-inline-block align-top" alt="">
+  </a>
+  <button class="btn btn-danger my-2 my-sm-0" type="submit" (click)="logout()">Logout</button>
+</nav>
+
+
+<div>
+
+
+  <div class="main-div">
+    <div class="card" style="width: 90vw;height:20rem">
+      <div class="card-body">
+        <div class="mx-auto">
+          <div *ngIf="account == undefined;then noAccount else accountExists"></div>
+
+          <ng-template #noAccount>
+            <div>No account exists, create new account</div>
+            <div class="mx-auto" style="width: 200px;">
+              <button class="btn btn-outline-primary" type="submit" (click)="addAccount()">Create
+                Account</button>
+            </div>
+          </ng-template>
+
+          <ng-template #accountExists>
+            <h3 class="card-title">Welcome {{customer._email}}</h3>
+
+            <div>
+              <h1>Account Details</h1>
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">State</th>
+                  <th scope="col">Pin</th>
+                  <th scope="col">City</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Created on</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Balance</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{account._id}}</td>
+                  <td>{{account._ownerName}}</td>
+                  <td>{{account._state}}</td>
+                  <td>{{account._pin}}</td>
+                  <td>{{account._city}}</td>
+                  <td>{{account.status}}</td>
+                  <td>{{account._createdDateTimeStamp}}</td>
+                  <td>{{account.type}}</td>
+                  <td>{{account._balance}}</td>
+                  <td>
+                    <button type="submit" class="btn btn-outline-success mr-2" [routerLink]="['/customer','edit']">
+                      <i class="fa fa-pencil-square-o" aria-hidden="true">
+                        Edit Account
+                      </i>
+                    </button>
+                    <button type="button" class="btn btn-outline-success mr-2" (click)="openModal(depositTemplate)">
+                      <i class="fa fa-plus-circle" aria-hidden="true">
+                        Deposit
+                      </i>
+                    </button>
+                    <button type="button" class="btn btn-outline-success mr-2" (click)="openModal(withdrawTemplate)">
+                      <i class="fa fa-minus-circle" aria-hidden="true">
+                        Withdraw </i>
+                    </button>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+<ng-template #depositTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Deposit money</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="deposit()">
+      <div class="form-group">
+        <input type="number" placeholder="Enter amount" [(ngModel)]="amount" name="amount" class="form-control">
+      </div>
+      <button class="btn btn-primary">Deposit</button>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #withdrawTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Withdraw money</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="withdraw()">
+      <div class="form-group">
+        <input type="number" placeholder="Enter amount" [(ngModel)]="amount" name="amount" class="form-control">
+      </div>
+      <button class="btn btn-primary">withdraw</button>
+    </form>
+  </div>
+</ng-template>

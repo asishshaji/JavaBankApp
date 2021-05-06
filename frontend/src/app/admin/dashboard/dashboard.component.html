@@ -1,0 +1,68 @@
+<nav class="navbar navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">
+    <img src="https://toppng.com/uploads/preview/state-bank-of-india-sbi-vector-logo-115742596090gi1tb90l9.png"
+      width="40" height="40" class="d-inline-block align-top" alt="">
+  </a>
+  <div class="text-white font-weight-bold h2">
+    Dashboard
+  </div>
+  <button class="btn btn-danger my-2 my-sm-0" type="submit" (click)="logout()">Logout</button>
+</nav>
+
+
+<div class="row mt-4 ml-4">
+  <div class="col-sm-4">
+    <input type="text" class="p-2" placeholder="Search" [(ngModel)]="term">
+  </div>
+</div>
+
+<div class="mt-5">
+
+  <table class="table table-hover">
+
+    <thead>
+      <tr>
+        <th (click)="changeOrder('_id')" scope="col">Id</th>
+        <th (click)="changeOrder('_ownerName')" scope="col">Name</th>
+        <th scope="col" (click)="changeOrder('_state')">State</th>
+        <th scope="col" (click)="changeOrder('_pin')">Pin</th>
+        <th scope="col" (click)="changeOrder('_city')">City</th>
+        <th scope="col" (click)="changeOrder('status')">Status</th>
+        <th scope="col" (click)="changeOrder('_createdDateTimeStamp')">Created on</th>
+        <th scope="col" (click)="changeOrder('_balance')">Balance</th>
+        <th scope="col" (click)="changeOrder('type')">Account type</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+
+      </tr>
+      <tr
+        *ngFor="let account of accounts| orderBy: order:orderBool|filter:term |paginate: {itemsPerPage: 7,currentPage:p} ">
+        <td>{{account._id}}</td>
+        <td>{{account._ownerName}}</td>
+        <td>{{account._state}}</td>
+        <td>{{account._pin}}</td>
+        <td>{{account._city}}</td>
+        <td>{{account.status}}</td>
+        <td>{{account._createdDateTimeStamp }}</td>
+        <td>{{account._balance}}</td>
+        <td>{{account.type}}</td>
+
+        <td>
+          <button type="submit" class="btn btn-outline-success mr-2" [routerLink]="['/admin','edit',account._id]">
+            <i class="fa fa-pencil-square-o" aria-hidden="true">
+              Edit Account
+            </i>
+          </button>
+
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+
+</div>
+
+<pagination-controls class="float-right mt-3" (pageChange)="p= $event"></pagination-controls>
