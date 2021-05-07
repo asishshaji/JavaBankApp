@@ -58,6 +58,11 @@ export class UserServiceService {
     return this.http.post(`${customerUrl}/create`, account, this.headerOptions)
   }
 
+  updateAccount(account: Account) {
+    this.setHeaderOptions()
+    return this.http.put(`${customerUrl}/create`, account, this.headerOptions)
+  }
+
   withdraw(amount: any) {
     this.setHeaderOptions()
 

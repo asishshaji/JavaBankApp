@@ -30,7 +30,7 @@ export class EditAccountComponent implements OnInit {
 
   editAccount() {
     console.log(this.account)
-    this._customerService.createAccount(this.account).subscribe(
+    this._customerService.updateAccount(this.account).subscribe(
       (res) => {
         this.errMessage = ''
         this._router.navigate(['customer', 'dashboard'])

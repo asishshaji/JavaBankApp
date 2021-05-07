@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,13 +58,10 @@ public class CustomerController {
   public Map<String, String> createAccount(
     @RequestHeader("authorization") String jwtToken,
     @RequestBody Account account
-  )
-    throws Exception {
+  ) {
     System.out.println(account.toString());
     System.out.println("Hello");
     String uEmail = Helpers.parseJWT(jwtToken);
-
-    accountInactive(account);
 
     Customer customer = _customerService.getCustomerByEmail(uEmail);
 
@@ -77,6 +75,24 @@ public class CustomerController {
     Account rAccount = bankService.createAccount(account);
 
     if (rAccount != null) msg.put("message", "Successfully created account");
+    return msg;
+  }
+
+  @PutMapping("/create")
+  public Map<String, String> updateAccount(
+    @RequestHeader("authorization") String jwtToken,
+    @RequestBody Account account
+  )
+    throws Exception {
+    System.out.println(account.toString());
+
+    accountInactive(account);
+
+    Map<String, String> msg = new HashMap<>();
+
+    Account rAccount = bankService.updateAccount(account);
+
+    if (rAccount != null) msg.put("message", "Successfully updated account");
     return msg;
   }
 
