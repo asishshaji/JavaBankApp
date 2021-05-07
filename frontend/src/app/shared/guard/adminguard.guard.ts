@@ -16,7 +16,7 @@ export class AdminguardGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): boolean {
-    if (!!sessionStorage.getItem('adminToken')) {
+    if (!!localStorage.getItem('adminToken')) {
       return true
     } else {
       this._router.navigate(['admin', 'login'])

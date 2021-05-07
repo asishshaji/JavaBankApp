@@ -130,11 +130,4 @@ public class CustomerController {
     Account rAccount = bankService.createAccount(account);
     return rAccount;
   }
-
-  @GetMapping("")
-  public Map<String, String> sayHi() {
-    Map<String, String> map = new HashMap<>();
-    map.put("email", "uEm");
-    return map;
-  }
 }

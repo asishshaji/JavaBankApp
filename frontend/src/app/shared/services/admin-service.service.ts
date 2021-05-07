@@ -17,7 +17,7 @@ export class AdminServiceService {
     this.headerOptions = {
       headers: new HttpHeaders().set(
         'Authorization',
-        sessionStorage.getItem('adminToken') + '',
+        localStorage.getItem('adminToken') + '',
       ),
     }
   }
@@ -25,7 +25,7 @@ export class AdminServiceService {
   loginAdmin(admin: Admin) {
     this.http.post(`${adminUrl}/login`, admin).subscribe((res) => {
       if (!!Object(res)['token'])
-        sessionStorage.setItem('adminToken', Object(res)['token'])
+        localStorage.setItem('adminToken', Object(res)['token'])
     })
   }
 
@@ -34,11 +34,11 @@ export class AdminServiceService {
     return this.http.get(`${adminUrl}/accounts`, this.headerOptions)
   }
   deleteToken() {
-    sessionStorage.removeItem('adminToken')
+    localStorage.removeItem('adminToken')
   }
 
   checkIfAuthenticated() {
-    const token = sessionStorage.getItem('adminToken')
+    const token = localStorage.getItem('adminToken')
     console.log(!!token)
     return !!token
   }

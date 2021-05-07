@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { Account } from '../../shared/interfaces/IAccount'
 import { Location } from '@angular/common'
@@ -41,9 +42,7 @@ export class AddAccountComponent implements OnInit {
       type: this.type,
     } as Account
     console.log(account)
-
     this._customerService.createAccount(account)
-
     this._router.navigate(['customer', 'dashboard'])
   }
 }

@@ -21,13 +21,6 @@ public class BankController {
   @Autowired
   private BankService bankService;
 
-  @GetMapping("")
-  public Map<String, String> sayHi() {
-    Map<String, String> map = new HashMap<>();
-    map.put("email", "uEm");
-    return map;
-  }
-
   @PostMapping("/login")
   public Map<String, String> login(@RequestBody Admin admin) {
     Map<String, String> msg = new HashMap<>();

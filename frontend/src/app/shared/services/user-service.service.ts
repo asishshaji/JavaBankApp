@@ -20,16 +20,16 @@ export class UserServiceService {
   loginCustomer(customer: Customer) {
     this.http.post(`${customerUrl}/login`, customer).subscribe((res) => {
       if (!!Object(res)['token'])
-        sessionStorage.setItem('token', Object(res)['token'])
+        localStorage.setItem('token', Object(res)['token'])
     })
   }
 
   deleteToken() {
-    sessionStorage.removeItem('token')
+    localStorage.removeItem('token')
   }
 
   checkIfAuthenticated() {
-    const token = sessionStorage.getItem('token')
+    const token = localStorage.getItem('token')
     console.log(!!token)
     return !!token
   }
@@ -38,7 +38,7 @@ export class UserServiceService {
     this.headerOptions = {
       headers: new HttpHeaders().set(
         'Authorization',
-        sessionStorage.getItem('token') + '',
+        localStorage.getItem('token') + '',
       ),
     }
   }

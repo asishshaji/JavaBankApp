@@ -1,10 +1,11 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
 import { AddAccountComponent } from './add-account/add-account.component'
 import { AlertModule } from 'ngx-bootstrap/alert'
 import { ButtonsModule } from 'ngx-bootstrap/buttons'
 import { CommonModule } from '@angular/common'
 import { DashboardComponent } from './dashboard/dashboard.component'
 import { EditAccountComponent } from './edit-account/edit-account.component'
-import { FormsModule } from '@angular/forms'
 import { LoginComponent } from './login/login.component'
 import { ModalModule } from 'ngx-bootstrap/modal'
 import { NgModule } from '@angular/core'
@@ -26,6 +27,7 @@ import { UserAuthRoutingModule } from './userauth-routing.module'
     FormsModule,
     ModalModule.forRoot(),
     AlertModule,
+    ReactiveFormsModule,
   ],
 })
 export class UserauthModule {}

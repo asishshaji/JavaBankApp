@@ -16,14 +16,18 @@ export class LoginComponent implements OnInit {
     private _router: Router,
   ) {}
   ngOnInit(): void {
-    if (this._customerService.checkIfAuthenticated())
+    if (this._customerService.checkIfAuthenticated()) {
+      console.log('Hi')
       this._router.navigate(['customer', 'dashboard'])
+    }
   }
 
   login() {
     this._customerService.loginCustomer(this.customer)
 
-    if (this._customerService.checkIfAuthenticated())
+    if (this._customerService.checkIfAuthenticated()) {
+      console.log('Hi')
       this._router.navigate(['customer', 'dashboard'])
+    }
   }
 }
