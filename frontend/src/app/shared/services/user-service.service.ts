@@ -18,10 +18,7 @@ export class UserServiceService {
   }
 
   loginCustomer(customer: Customer) {
-    this.http.post(`${customerUrl}/login`, customer).subscribe((res) => {
-      if (!!Object(res)['token'])
-        localStorage.setItem('token', Object(res)['token'])
-    })
+    return this.http.post(`${customerUrl}/login`, customer)
   }
 
   deleteToken() {
@@ -29,8 +26,11 @@ export class UserServiceService {
   }
 
   checkIfAuthenticated() {
-    const token = localStorage.getItem('token')
-    console.log(!!token)
+    const token: string | undefined = localStorage['token']
+
+    console.log('Type', typeof token)
+
+    console.log('Auth', token)
     return !!token
   }
 

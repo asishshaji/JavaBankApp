@@ -15,19 +15,23 @@ export class LoginComponent implements OnInit {
     private _customerService: UserServiceService,
     private _router: Router,
   ) {}
-  ngOnInit(): void {
-    if (this._customerService.checkIfAuthenticated()) {
-      console.log('Hi')
-      this._router.navigate(['customer', 'dashboard'])
-    }
-  }
+  ngOnInit(): void {}
 
   login() {
-    this._customerService.loginCustomer(this.customer)
-
-    if (this._customerService.checkIfAuthenticated()) {
-      console.log('Hi')
-      this._router.navigate(['customer', 'dashboard'])
-    }
+    this._customerService.loginCustomer(this.customer).subscribe(
+      (res: any) => {
+        const token = res['token']
+        localStorage['token'] = token
+      },
+      (err) => {
+        console.log(err)
+      },
+      () => {
+        console.log(localStorage['token'])
+        if (localStorage['token'] != 'undefined') {
+          this._router.navigate(['customer', 'dashboard'])
+        }
+      },
+    )
   }
 }

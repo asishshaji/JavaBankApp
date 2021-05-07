@@ -17,11 +17,17 @@
           <div *ngIf="account == undefined;then noAccount else accountExists"></div>
 
           <ng-template #noAccount>
-            <div>No account exists, create new account</div>
-            <div class="mx-auto" style="width: 200px;">
-              <button class="btn btn-outline-primary" type="submit" (click)="addAccount()">Create
-                Account</button>
+            <div class="d-flex flex-column justify-content-center align-items-center">
+
+              <div class="p-2">No account exists, create new account</div>
+              <div class="p-2">
+                <button class="btn btn-outline-primary" type="submit" (click)="addAccount()">Create
+                  Account</button>
+              </div>
+
             </div>
+
+
           </ng-template>
 
           <ng-template #accountExists>

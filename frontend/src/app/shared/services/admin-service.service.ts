@@ -23,10 +23,7 @@ export class AdminServiceService {
   }
 
   loginAdmin(admin: Admin) {
-    this.http.post(`${adminUrl}/login`, admin).subscribe((res) => {
-      if (!!Object(res)['token'])
-        localStorage.setItem('adminToken', Object(res)['token'])
-    })
+    return this.http.post(`${adminUrl}/login`, admin)
   }
 
   fetchAllAccounts() {
