@@ -26,7 +26,9 @@
 
           <ng-template #accountExists>
             <h3 class="card-title">Welcome {{customer._email}}</h3>
-
+            <p class="text-danger mt-4">
+              {{errMessage}}
+            </p>
             <div>
               <h1>Account Details</h1>
             </div>
@@ -76,6 +78,7 @@
 
               </tbody>
             </table>
+
           </ng-template>
         </div>
       </div>

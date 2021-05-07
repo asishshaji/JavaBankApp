@@ -57,9 +57,13 @@ public class CustomerController {
   public Map<String, String> createAccount(
     @RequestHeader("authorization") String jwtToken,
     @RequestBody Account account
-  ) {
+  )
+    throws Exception {
     System.out.println(account.toString());
+    System.out.println("Hello");
     String uEmail = Helpers.parseJWT(jwtToken);
+
+    accountInactive(account);
 
     Customer customer = _customerService.getCustomerByEmail(uEmail);
 
@@ -68,6 +72,7 @@ public class CustomerController {
     account.setCustomer(customer);
     account.set_id(customer.get_id());
     // account.set_balance(0.0);
+    System.out.println("Hi");
 
     Account rAccount = bankService.createAccount(account);
 
@@ -95,6 +100,15 @@ public class CustomerController {
     return account;
   }
 
+  private void accountInactive(Account account) throws Exception {
+    if (
+      account.getStatus() == Status.CLOSED ||
+      account.getStatus() == Status.INACTIVE
+    ) throw new Exception(
+      "Account is " + account.getStatus() + ", contact your bank"
+    );
+  }
+
   @GetMapping("/withdraw/{amount}")
   public Account withDrawMoney(
     @RequestHeader("authorization") String jwtToken,
@@ -106,11 +120,10 @@ public class CustomerController {
     Customer customer = _customerService.getCustomerByEmail(uEmail);
     Account account = bankService.getAccount(customer.get_id());
 
-    if (
-      account.getStatus() == Status.CLOSED ||
-      account.getStatus() == Status.INACTIVE
-    ) throw new Exception("Account is inactive, contact your bank");
-
+    accountInactive(account);
+    if (amount > account.get_balance()) throw new Exception(
+      "Insufficient balance"
+    );
     account.withDrawMoney(amount);
     Account rAccount = bankService.createAccount(account);
     return rAccount;
@@ -120,11 +133,13 @@ public class CustomerController {
   public Account depositMoney(
     @RequestHeader("authorization") String jwtToken,
     @PathVariable Double amount
-  ) {
+  )
+    throws Exception {
     String uEmail = Helpers.parseJWT(jwtToken);
 
     Customer customer = _customerService.getCustomerByEmail(uEmail);
     Account account = bankService.getAccount(customer.get_id());
+    accountInactive(account);
 
     account.depositMoney(amount);
     Account rAccount = bankService.createAccount(account);

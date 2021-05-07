@@ -42,7 +42,9 @@ export class AddAccountComponent implements OnInit {
       type: this.type,
     } as Account
     console.log(account)
-    this._customerService.createAccount(account)
+    this._customerService.createAccount(account).subscribe((res) => {
+      console.log(res)
+    })
     this._router.navigate(['customer', 'dashboard'])
   }
 }

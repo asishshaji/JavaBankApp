@@ -1,8 +1,6 @@
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal'
 import { Component, OnInit, TemplateRef } from '@angular/core'
 
-import { Account } from 'src/app/shared/interfaces/IAccount'
-import { Customer } from 'src/app/shared/interfaces/ICustomer'
 import { Router } from '@angular/router'
 import { UserServiceService } from 'src/app/shared/services/user-service.service'
 
@@ -15,6 +13,7 @@ export class DashboardComponent implements OnInit {
   customer: any
   account: any
 
+  errMessage: any
   modalRef: BsModalRef = {} as BsModalRef
 
   amount: any
@@ -55,14 +54,29 @@ export class DashboardComponent implements OnInit {
   }
 
   withdraw() {
-    this._customerService.withdraw(this.amount)
-    this.getProfileData()
+    this._customerService.withdraw(this.amount).subscribe(
+      (res) => {
+        this.errMessage = ''
+        this.getProfileData()
+      },
+      (err) => {
+        this.errMessage = err.error.message
+      },
+    )
     this.modalRef.hide()
   }
 
   deposit() {
-    this._customerService.deposit(this.amount)
-    this.getProfileData()
+    this._customerService.deposit(this.amount).subscribe(
+      (res) => {
+        this.errMessage = ''
+
+        this.getProfileData()
+      },
+      (err) => {
+        this.errMessage = err.error.message
+      },
+    )
     this.modalRef.hide()
   }
 }

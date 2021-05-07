@@ -17,6 +17,7 @@ export class EditAccountComponent implements OnInit {
   ) {}
 
   account: any
+  errMessage: String = new String('')
 
   goBack() {
     this._location.back()
@@ -29,7 +30,14 @@ export class EditAccountComponent implements OnInit {
 
   editAccount() {
     console.log(this.account)
-    this._customerService.createAccount(this.account)
-    this._router.navigate(['customer', 'dashboard'])
+    this._customerService.createAccount(this.account).subscribe(
+      (res) => {
+        this.errMessage = ''
+        this._router.navigate(['customer', 'dashboard'])
+      },
+      (err) => {
+        this.errMessage = err.error.message
+      },
+    )
   }
 }

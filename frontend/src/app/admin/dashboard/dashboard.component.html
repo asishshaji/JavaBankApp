@@ -39,7 +39,7 @@
 
       </tr>
       <tr
-        *ngFor="let account of accounts| orderBy: order:orderBool|filter:term |paginate: {itemsPerPage: 7,currentPage:p} ">
+        *ngFor="let account of accounts| orderBy: order:orderBool|filter:term |paginate: {itemsPerPage: 8,currentPage:p} ">
         <td>{{account._id}}</td>
         <td>{{account._ownerName}}</td>
         <td>{{account._state}}</td>

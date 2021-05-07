@@ -55,30 +55,21 @@ export class UserServiceService {
 
   createAccount(account: Account) {
     this.setHeaderOptions()
-    return this.http
-      .post(`${customerUrl}/create`, account, this.headerOptions)
-      .subscribe((res) => {
-        console.log(res)
-      })
+    return this.http.post(`${customerUrl}/create`, account, this.headerOptions)
   }
 
   withdraw(amount: any) {
     this.setHeaderOptions()
 
-    return this.http
-      .get(`${customerUrl}/withdraw/${amount}`, this.headerOptions)
-      .subscribe((res) => {
-        console.log(res)
-      })
+    return this.http.get(
+      `${customerUrl}/withdraw/${amount}`,
+      this.headerOptions,
+    )
   }
 
   deposit(amount: any) {
     this.setHeaderOptions()
 
-    return this.http
-      .get(`${customerUrl}/deposit/${amount}`, this.headerOptions)
-      .subscribe((res) => {
-        console.log(res)
-      })
+    return this.http.get(`${customerUrl}/deposit/${amount}`, this.headerOptions)
   }
 }
